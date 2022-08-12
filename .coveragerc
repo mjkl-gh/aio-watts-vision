@@ -1,0 +1,5 @@
+[run]
+include =
+    aio_watts_vision/*
+omit =
+    aio_watts_vision/tests/*
