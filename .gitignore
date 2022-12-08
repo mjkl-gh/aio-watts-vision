@@ -11,3 +11,5 @@ dist/
 htmlcov
 *requirement*.txt
 *.pickle
+lib/
+bin/
