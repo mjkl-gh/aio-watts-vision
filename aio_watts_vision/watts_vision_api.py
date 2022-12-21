@@ -11,13 +11,15 @@ class WattsVisionAPI:
         """Initialize the API and store the auth so we can make requests."""
         self.auth = auth
 
-    async def async_get_user(self, username: str, lang="nl_NL") -> User:
-        payload = {"token": "true", "email": username, "lang": "en_GB"}
+    async def async_get_user(self, username: str, lang="en_GB") -> User:
+        payload = {"token": "true", "email": username, "lang": lang}
         resp = await self.auth.request("post", "user/read", data=payload)
+        resp.raise_for_status()
         return User((await resp.json())["data"])
 
-    async def async_get_smarthome_data(self) -> SmarthomeData:
+    async def async_get_smarthome_data(self, smarthome_id: str, lang="en_GB") -> SmarthomeData:
         """Return the smarthome data"""
-        resp = await self.auth.request("get", "lights")
+        payload = {"token": "true", "smarthome_id": smarthome_id, "lang": lang}
+        resp = await self.auth.request("post", "smarthome/read", data=payload)
         resp.raise_for_status()
-        return [SmarthomeData(smarthome_data, self.auth) for smarthome_data in await resp.json()]
+        return SmarthomeData((await resp.json())["data"])
