@@ -410,6 +410,6 @@ class User(BaseAPIObject):
     @property   
     def smarthomes(self) ->  List["Smarthome"]:
         """Return the smarthomes of the User."""
-        return self.attributes.get("smarthomes", None)    
+        return list(map(Smarthome, self.attributes.get("smarthomes", None)))
 
         
