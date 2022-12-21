@@ -34,7 +34,7 @@ class Smarthome(BaseAPIObject):
     @property
     def devices(self) -> List[Device]:
         """Return the devices of the smarthome."""
-        return map(Device(), self.attributes.get("devices", []))
+        return list(map(Device, self.attributes.get("devices", [])))
 
 
     @property
@@ -74,9 +74,9 @@ class Smarthome(BaseAPIObject):
 
 
     @property
-    def modes(self) -> List[Mode]:
+    def modes(self) -> List["Mode"]:
         """Return the modes of the smarthome."""
-        return map(Mode(), self.attributes.get("modes", []))
+        return list(map(Mode, self.attributes.get("modes", [])))
 
 
     @property
@@ -92,28 +92,18 @@ class Smarthome(BaseAPIObject):
 
 
     @property
-    def users(self) -> list[User]:
+    def users(self) -> List["User"]:
         """Return the users of the smarthome."""
         return self.attributes.get("users", None)
 
 
     @property
-    def zones(self) -> list[Zone]:
+    def zones(self) -> List["Zone"]:
         """Return the zones of the smarthome."""
         return self.attributes.get("zones", None)
 
-
 class Device(BaseAPIObject):
     """Class that represents a device in the Watts Vision API"""
-
-    @property
-    def __init__(self, raw_data: dict):
-        """Return the def __init__(self, raw_data: dict, auth of the smarthome."""
-        return self.attributes.get("def __init__(self, raw_data: dict, auth", None)
-
-
-        """Initialize a smarthome object."""
-        self.raw_data = raw_data
 
     @property
     def bit_override(self) ->  bool:
@@ -281,7 +271,7 @@ class Device(BaseAPIObject):
 class Zone(BaseAPIObject):
     """Class that represents a Zone in the Watts Vision API"""
     @property
-    def devices(self) ->  list[Device]:
+    def devices(self) ->  List["Device"]:
         """Return the devices of the smarthome."""
         return self.attributes.get("devices", None)
 
