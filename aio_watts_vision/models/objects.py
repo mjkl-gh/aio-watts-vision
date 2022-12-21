@@ -289,9 +289,9 @@ class Device(BaseAPIObject):
 
 
     @property
-    def programme(self) ->  str:
+    def programme(self) ->  List[int]:
         """Return the programme of the smarthome."""
-        return self.attributes.get("programme", None)
+        return list(map(int, list(self.attributes.get("programme", None))))
 
 
     @property
