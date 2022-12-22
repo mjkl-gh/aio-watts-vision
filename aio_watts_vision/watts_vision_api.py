@@ -1,7 +1,9 @@
 from typing import List
 
 from .auth import Auth
-from .models.objects import SmarthomeData, User
+from .models.smarthome import Smarthome
+from .models.user import User
+from .models.enum import Language
 
 
 class WattsVisionAPI:
@@ -22,4 +24,4 @@ class WattsVisionAPI:
         payload = {"token": "true", "smarthome_id": smarthome_id, "lang": lang}
         resp = await self.auth.request("post", "smarthome/read", data=payload)
         resp.raise_for_status()
-        return SmarthomeData((await resp.json())["data"])
+        return Smarthome((await resp.json())["data"])
