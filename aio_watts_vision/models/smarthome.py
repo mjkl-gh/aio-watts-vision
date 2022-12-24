@@ -165,9 +165,9 @@ class Device(BaseAPIObject):
 
 
     @property
-    def gv_mode(self) ->  int:
+    def gv_mode(self) ->  ModeEnum:
         """Return the gv_mode of the smarthome."""
-        return self.attributes.get("gv_mode", None)
+        return ModeEnum(self.attributes.get("gv_mode", None))
 
 
     @property
@@ -225,9 +225,9 @@ class Device(BaseAPIObject):
 
 
     @property
-    def nv_mode(self) ->  int:
+    def nv_mode(self) ->  ModeEnum:
         """Return the nv_mode of the smarthome."""
-        return self.attributes.get("nv_mode", None)
+        return ModeEnum(self.attributes.get("nv_mode", None))
 
 
     @property
