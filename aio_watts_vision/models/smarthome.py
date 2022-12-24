@@ -105,6 +105,40 @@ class Smarthome(SmarthomeBase):
     def zones(self) -> List["Zone"]:
         """Return the zones of the smarthome."""
         return self.attributes.get("zones", None)
+    
+    async def async_set_holiday_mode(self, on: bool, startdate: datetime=None, enddate: datetime=None) -> ClientResponse:
+        payload = {
+                "token": "true",
+                "smarthome_id": self.smarthome_id,
+                "holiday_mode": int(on),
+                "lang": Language.ENGLISH.value,
+        }
+        if on and startdate is not None and enddate is not None:
+            payload = payload | {
+                    "holiday_start": startdate.strftime("%Y-%m-%d %H:%M:%S") or " ",
+                    "holiday_end": enddate.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+        resp = await self.auth.request(
+            "post", "smarthome/edit", data=payload
+        )
+        return resp
+
+    async def async_set_thermostat_mode(self, mode: ModeEnum, ) -> ClientResponse:
+        payload = {
+            "token": "true",
+            "context": "1",
+            "smarthome_id": self.smarthome_id,
+            "query[id_device]": "all",
+            "query[bundle_code]": "C",
+            "query[gv_mode]": mode.value,
+            "query[nv_mode]": mode.value,
+            "peremption": "15000",
+            "lang": Language.ENGLISH.value,
+        }
+        resp = await self.auth.request(
+            "post", "query/push", data=payload
+        )
+        return resp 
 
 class Device(BaseAPIObject):
     """Class that represents a device in the Watts Vision API"""
@@ -269,7 +303,41 @@ class Device(BaseAPIObject):
     def time_boost(self) ->  int:
         """Return the time_boost of the smarthome."""
         return self.attributes.get("time_boost", None)
-
+    
+    async def async_set_mode(self, mode: ModeEnum, seconds: int=None):
+        payload = {
+                "token": "true",
+                "context": "1",
+                "smarthome_id": self.id.split("#")[0],
+                "query[id_device]": self.id_device,
+                "query[gv_mode]": mode.value,
+                "query[nv_mode]": mode.value,
+                "peremption": "15000",
+                "lang": Language.ENGLISH.value,
+            }
+        if seconds is not None and mode is ModeEnum.BOOST:
+            payload["query[time_boost]"] = seconds            
+        resp = await self.auth.request(
+            "post", "query/push", data=payload
+        )
+        return resp
+        
+    async def async_set_temp(self, mode: ModeEnum, temp: float):
+        consigne = round(celsius_to_fahrenheit(temp)*10)
+        payload = {
+                "token": "true",
+                "context": "1",
+                "smarthome_id": self.id.split("#")[0],
+                "query[id_device]": self.id_device,
+                f"query[consigne_{mode.name.lower()}]": consigne,
+                "query[consigne_manuel]": consigne,
+                "peremption": "15000",
+                "lang": Language.ENGLISH.value,
+            }
+        resp = await self.auth.request(
+            "post", "query/push", data=payload
+        )
+        return resp
 
 
 class Zone(BaseAPIObject):
