@@ -1,4 +1,5 @@
 from .base import BaseAPIObject
+from .enums import Language
 from typing import List
 
 class User(BaseAPIObject):
@@ -14,9 +15,9 @@ class User(BaseAPIObject):
         return self.attributes.get("user_id", None)
 
     @property   
-    def lang_code(self) ->  str:
+    def lang_code(self) ->  Language:
         """Return the lang_code of the User."""
-        return self.attributes.get("lang_code", None)
+        return Language(self.attributes.get("lang_code", None))
 
     @property   
     def cgu_id(self) ->  int:
@@ -31,7 +32,7 @@ class User(BaseAPIObject):
     @property   
     def smarthomes(self) ->  List["Smarthome"]:
         """Return the smarthomes of the User."""
-        return list(map(Smarthome, self.attributes.get("smarthomes", None)))
+        return list(Smarthome(x, self.auth) for x in self.attributes.get("smarthomes", None))
 
 class Smarthome(BaseAPIObject):
     """Class that represents a smarthome in the Watts Vision API"""
