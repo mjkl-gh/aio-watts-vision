@@ -1,7 +1,12 @@
-from .base import BaseAPIObject
 from typing import List
+from datetime import datetime
+from aiohttp import ClientResponse
 
+from .base import BaseAPIObject
+from .enums import Language
+from .enums import Mode as ModeEnum 
 from .user import Smarthome as SmarthomeBase
+from .util import fahrenheit_to_celsius, celsius_to_fahrenheit
 
 class Smarthome(SmarthomeBase):
     """Class that represents a smarthome in the Watts Vision API"""
