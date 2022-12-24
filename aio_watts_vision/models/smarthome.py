@@ -106,61 +106,61 @@ class Device(BaseAPIObject):
 
     @property
     def bit_override(self) ->  bool:
-        """Return the bit_override of the smarthome."""
+        """Return the bit_override of the Device."""
         return self.attributes.get("bit_override", None)
 
 
     @property
     def bundle_id(self) ->  int:
-        """Return the bundle_id of the smarthome."""
+        """Return the bundle_id of the Device."""
         return self.attributes.get("bundle_id", None)
 
 
     @property
     def consigne_boost(self) ->  int:
-        """Return the consigne_boost of the smarthome."""
+        """Return the consigne_boost of the Device."""
         return self.attributes.get("consigne_boost", None)
 
 
     @property
     def consigne_confort(self) ->  int:
-        """Return the consigne_confort of the smarthome."""
+        """Return the consigne_confort of the Device."""
         return self.attributes.get("consigne_confort", None)
 
 
     @property
     def consigne_eco(self) ->  int:
-        """Return the consigne_eco of the smarthome."""
+        """Return the consigne_eco of the Device."""
         return self.attributes.get("consigne_eco", None)
 
 
     @property
     def consigne_hg(self) ->  int:
-        """Return the consigne_hg of the smarthome."""
+        """Return the consigne_hg of the Device."""
         return self.attributes.get("consigne_hg", None)
 
 
     @property
     def consigne_manuel(self) ->  int:
-        """Return the consigne_manuel of the smarthome."""
+        """Return the consigne_manuel of the Device."""
         return self.attributes.get("consigne_manuel", None)
 
 
     @property
     def error_code(self) ->  int:
-        """Return the error_code of the smarthome."""
+        """Return the error_code of the Device."""
         return self.attributes.get("error_code", None)
 
 
     @property
     def fan_error(self) ->  int:
-        """Return the fan_error of the smarthome."""
+        """Return the fan_error of the Device."""
         return self.attributes.get("fan_error", None)
 
 
     @property
     def fan_speed(self) ->  int:
-        """Return the fan_speed of the smarthome."""
+        """Return the fan_speed of the Device."""
         return self.attributes.get("fan_speed", None)
 
 
@@ -271,61 +271,61 @@ class Zone(BaseAPIObject):
     """Class that represents a Zone in the Watts Vision API"""
     @property
     def devices(self) ->  List["Device"]:
-        """Return the devices of the smarthome."""
+        """Return the devices of the Zone."""
         return self.attributes.get("devices", None)
 
 
     @property
     def label_zone_type(self) ->  str:
-        """Return the label_zone_type of the smarthome."""
+        """Return the label_zone_type of the Zone."""
         return self.attributes.get("label_zone_type", None)
 
 
     @property
     def num_zone(self) ->  int:
-        """Return the num_zone of the smarthome."""
+        """Return the num_zone of the Zone."""
         return self.attributes.get("num_zone", None)
 
 
     @property
     def picto_zone_type(self) ->  str:
-        """Return the picto_zone_type of the smarthome."""
+        """Return the picto_zone_type of the Zone."""
         return self.attributes.get("picto_zone_type", None)
 
 
     @property
     def zone_img_id(self) ->  int:
-        """Return the zone_img_id of the smarthome."""
+        """Return the zone_img_id of the Zone."""
         return self.attributes.get("zone_img_id", None)
 
 
     @property
     def zone_label(self) ->  str:
-        """Return the zone_label of the smarthome."""
+        """Return the zone_label of the Zone."""
         return self.attributes.get("zone_label", None)
 
 class Mode(BaseAPIObject):
     @property
     def bundle_id(self) ->  int:
-        """Return the bundle_id of the smarthome."""
+        """Return the bundle_id of the Mode."""
         return self.attributes.get("bundle_id", None)
 
 
     @property
-    def nvgv_mode_id(self) ->  int:
-        """Return the nvgv_mode_id of the smarthome."""
-        return self.attributes.get("nvgv_mode_id", None)
+    def nvgv_mode_id(self) ->  ModeEnum:
+        """Return the nvgv_mode_id of the Mode."""
+        return ModeEnum(self.attributes.get("nvgv_mode_id", None))
 
 
     @property
     def smarthome_id(self) ->  str:
-        """Return the smarthome_id of the smarthome."""
+        """Return the smarthome_id of the Mode."""
         return self.attributes.get("smarthome_id", None)
 
 
     @property
     def smarthome_mode_type_id(self) ->  int:
-        """Return the smarthome_mode_type_id of the smarthome."""
+        """Return the smarthome_mode_type_id of the Mode."""
         return self.attributes.get("smarthome_mode_type_id", None)
 
         
