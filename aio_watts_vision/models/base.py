@@ -1,5 +1,6 @@
 """Watts vision: Base"""
 import logging 
+from auth import Auth
 
 class BaseObject():
     """Base class for Watts vision."""
@@ -12,3 +13,7 @@ class BaseObject():
 
 class BaseAPIObject(BaseObject):
     """Base class for the Watts vision REST API."""
+
+    def __init__(self, attributes: dict, auth: Auth) -> None:
+        super().__init__(attributes)
+        self.auth = auth
