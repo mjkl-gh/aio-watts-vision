@@ -37,10 +37,6 @@ async def main():
             print("Smarthome object:")
             pprint(vars(smarthome_data), depth=3)
 
-            device = smarthome_data.devices[4]
-            pprint(vars(device))
-            resp = await device.async_set_temp(Mode.BOOST, 20.0) 
-            print(await resp.json())
             await asyncio.sleep(10)
 
 asyncio.run(main())
