@@ -38,7 +38,7 @@ class Smarthome(SmarthomeBase):
     @property
     def devices(self) -> List["Device"]:
         """Return the devices of the smarthome."""
-        return list(map(Device, self.attributes.get("devices", [])))
+        return list(Device(x, self.auth) for x in self.attributes.get("devices", []))
 
 
     @property
