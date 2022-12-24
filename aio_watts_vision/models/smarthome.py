@@ -92,7 +92,7 @@ class Smarthome(SmarthomeBase):
     @property
     def smarthome_id(self) -> str:
         """Return the id of the smarthome."""
-        return self.attributes.get("id", None)
+        return self.attributes.get("smarthome_id", None)
 
 
     @property
